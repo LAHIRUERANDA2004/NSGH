@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Membership Card</title>
+  <style>
+    body {
+      background: #000;
+      color: #D4AF37;
+      font-family: Arial;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+    }
+    .card {
+      border: 3px solid #D4AF37;
+      border-radius: 15px;
+      max-width: 320px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>NEW SUN GOLD HOUSE</h1>
+    <h2>Honor Member</h2>
+    <div id="member-name">Loading...</div>
+    <div id="member-since">Member Since: </div>
+    <div id="qr-code" style="margin: 20px auto;"></div>
+  </div>
+
+  <script>
+    // Extract parameters from URL
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById('member-name').textContent = params.get('name') || 'Member';
+    document.getElementById('member-since').textContent += params.get('date') || new Date().toLocaleDateString();
+    
+    // Optional: Regenerate QR code on the page
+    if (window.QRCode) {
+      new QRCode(document.getElementById("qr-code"), {
+        text: window.location.href,
+        width: 150,
+        height: 150,
+        colorDark: "#D4AF37",
+        colorLight: "#000000"
+      });
+    }
+  </script>
+  <!-- Optional: Include QR code generator library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+</body>
+</html>
